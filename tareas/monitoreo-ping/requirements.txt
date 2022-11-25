@@ -1,0 +1,2 @@
+# Estos son los requisitos para ejecutar el parsing
+pingparsing==1.4.0
