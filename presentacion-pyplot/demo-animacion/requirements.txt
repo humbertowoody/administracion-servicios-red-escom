@@ -1,0 +1,8 @@
+# Estos son los "requirements" para ejecutar el programa, para instalarlos
+# 1) Crea un ambiente virtual: python3 -m venv ./venv
+# 2) Activa tu ambiente virtual: source ./venv/bin/activate
+# 3) Instala las dependencias: pip install -r requirements.txt
+# 4) Ejecuta el programa! :D
+
+matplotlib==3.6.2
+pingparsing==1.4.0
