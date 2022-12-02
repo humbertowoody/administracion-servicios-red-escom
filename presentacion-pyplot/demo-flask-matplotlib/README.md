@@ -95,7 +95,7 @@ Así se vería la llamada a `/ping/8.8.8.8` (sin argumentos extra):
 
 Así se vería la llamada a `/ping/8.8.8.8?timeout=10&cantidad=100`:
 
-![Imagen de Gráfica de Ping con Argumentos][grafica-3: https://www.postman.com/downloads/]
+![Imagen de Gráfica de Ping con Argumentos][grafica-3]
 
 > Recomendamos el uso de [Postman][link-postman] para hacer pruebas de APIs ya
 > que simplifica _muchísimo_ el proceso de debug y configuración.
