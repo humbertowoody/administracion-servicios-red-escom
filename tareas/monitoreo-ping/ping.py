@@ -5,6 +5,10 @@ import pingparsing
 
 
 def ping(host="8.8.8.8",repeticiones=20):
+    """
+    Función que recibe un host y un número de repeticiones, realiza un ping para
+    cada una e imprime los datos en formato JSON.
+    """
     # Creamos un objeto de PingParsing
     ping_parser=pingparsing.PingParsing()
 
@@ -25,4 +29,4 @@ def ping(host="8.8.8.8",repeticiones=20):
 
 if __name__=="__main__":
     # En la función principal llamamos a nuestra función ping.
-    ping("8.8.8.8", 10)
+    ping("8.8.8.8", 3700) # Como debe ser 1 hora, 3600s + 100 por si las moscas son 3700 repeticiones.

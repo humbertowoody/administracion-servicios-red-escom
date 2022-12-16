@@ -1,6 +1,11 @@
 #/bin/bash
 # Este script ejecuta el ping en python durante una hora añadiendo los resultados
 # a un archivo en formato JSON.
+# OJO: Debido a que el profesor no quería resultados de cada ping sino que un
+#      resumen de los datos, este archivo no fue usado y se sustituyó por 3700
+#      repeticiones dentro del archivo ping.py; si deseas usar este archivo 
+#      primero deberás regresar ahí a 1 repetición (o lo que consideres), porque
+#      de otra forma esto será eterno, o más bien solo se ejecutaría una vez.
 
 # Calculamos la fecha de inicio.
 INICIO=`date +%s`;
