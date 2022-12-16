@@ -1,0 +1,42 @@
+<!doctype html>
+<head>
+  <title>Práctica 5 - Gráfica de Traps Recibidas</title>
+  <style>
+    /* Estilo para el contenedor del gráfico */
+    .contenedor-grafica {
+      border: 1px solid #333;
+      margin: 20px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    /* Estilo para el título del gráfico */
+    .titulo-grafica {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+</style>
+</head>
+<body>
+  <h1>Práctica 5 - Gráfica Traps Recibidas</h1>
+  <p>
+    En esta página se puede visualizar una gráfica con las traps de SNMP
+    recibidas.
+  </p>
+  {% if grafica_svg %}
+    <div class="contenedor-grafica">
+      <div class="titulo-grafica">Gráfica de Traps Recibidas</div>
+      {{ grafica_svg | safe }}
+    </div>
+  {% else %}
+    <h4>No se ha podido generar la gráfica.</h4>
+  {% endif %}
+  <p>
+    <i><b>Nota*:</b></i> Los datos se comienzan a capturar a partir del inicio
+    de la ejecución del programa.
+  </p>
+  <p>
+    <a href="/">Haz click aquí</a> para volver al menú principal.
+  </p>
+</body>

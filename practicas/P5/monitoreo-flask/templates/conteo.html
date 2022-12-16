@@ -1,0 +1,23 @@
+<!doctype html>
+<head>
+  <title>Práctica 5 - Conteo</title>
+</head>
+<body>
+  <h1>Práctica 5 - Conteo de Paquetes en una interfaz de Red</h1>
+  <p>
+    En esta página se puede visualizar el contador actual siendo
+    consultado en tiempo real desde el MIB usando SNMP.
+  </p>
+  {% if conteo %}
+    <h3>Número de paquetes: {{ conteo }}</h3>
+  {% else %}
+    <h3>No se pudieron contabilizar los paquetes.</h3>
+  {% endif %}
+  <p>
+    Esta información es consultada en tiemop real y depende del <i>uptime</i>
+    del equipo y, principalmente, del servidor SNMP que estemos utilizando.
+  </p>
+  <p>
+    <a href="/">Haz click aquí</a> para volver al menú principal.
+  </p>
+</body>
