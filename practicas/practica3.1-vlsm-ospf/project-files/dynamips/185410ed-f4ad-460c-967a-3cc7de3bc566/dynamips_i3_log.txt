@@ -1,0 +1,19 @@
+Nov 08 12:13:34.194 HYPERVISOR: Release 0.2.17-amd64/Darwin (tag 2017072410)
+Nov 08 12:13:34.194 HYPERVISOR: Started on IP = localhost, TCP port = 64436.
+Nov 08 12:13:34.199 HYPERVISOR: exec_cmd: hypervisor version 
+Nov 08 12:13:34.200 HYPERVISOR: exec_cmd: hypervisor working_dir /Users/humbertowoody/Proyectos/IPN/administracion-de-servicios-en-red/practicas/practica3.1-vlsm-ospf/project-files/dynamips 
+Nov 08 12:13:34.200 GENERAL: working_dir=/Users/humbertowoody/Proyectos/IPN/administracion-de-servicios-en-red/practicas/practica3.1-vlsm-ospf/project-files/dynamips
+Nov 08 12:13:34.200 HYPERVISOR: exec_cmd: ethsw create Switch-3 
+Nov 08 12:13:36.311 HYPERVISOR: exec_cmd: nio create_udp udp-d42dd8b4-500e-41e2-8777-0f696e346646 10037 127.0.0.1 10036 
+Nov 08 12:13:36.311 HYPERVISOR: exec_cmd: ethsw add_nio Switch-3 udp-d42dd8b4-500e-41e2-8777-0f696e346646 
+Nov 08 12:13:36.315 HYPERVISOR: exec_cmd: ethsw set_access_port Switch-3 udp-d42dd8b4-500e-41e2-8777-0f696e346646 1 
+Nov 08 12:13:36.361 HYPERVISOR: exec_cmd: nio create_udp udp-ebd7b2d9-57e5-4635-9a06-eddeb0b0ac29 10039 127.0.0.1 10038 
+Nov 08 12:13:36.361 HYPERVISOR: exec_cmd: ethsw add_nio Switch-3 udp-ebd7b2d9-57e5-4635-9a06-eddeb0b0ac29 
+Nov 08 12:13:36.364 HYPERVISOR: exec_cmd: ethsw set_access_port Switch-3 udp-ebd7b2d9-57e5-4635-9a06-eddeb0b0ac29 1 
+Nov 08 12:13:36.404 HYPERVISOR: exec_cmd: nio create_udp udp-0b86f2c2-ada6-428a-9e51-c5048111c76c 10040 127.0.0.1 10041 
+Nov 08 12:13:36.404 HYPERVISOR: exec_cmd: ethsw add_nio Switch-3 udp-0b86f2c2-ada6-428a-9e51-c5048111c76c 
+Nov 08 12:13:36.412 HYPERVISOR: exec_cmd: ethsw set_access_port Switch-3 udp-0b86f2c2-ada6-428a-9e51-c5048111c76c 1 
+Nov 08 12:38:59.646 HYPERVISOR: exec_cmd: ethsw delete Switch-3 
+Nov 08 12:38:59.719 HYPERVISOR: exec_cmd: hypervisor stop 
+Nov 08 12:39:00.082 HYPERVISOR: Stopped.
+Nov 08 12:39:00.082 GENERAL: reset done.

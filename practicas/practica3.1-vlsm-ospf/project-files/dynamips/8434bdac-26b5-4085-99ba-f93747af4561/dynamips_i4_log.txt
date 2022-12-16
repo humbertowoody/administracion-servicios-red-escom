@@ -1,0 +1,73 @@
+Nov 08 12:13:34.283 HYPERVISOR: Release 0.2.17-amd64/Darwin (tag 2017072410)
+Nov 08 12:13:34.283 HYPERVISOR: Started on IP = localhost, TCP port = 64441.
+Nov 08 12:13:34.288 HYPERVISOR: exec_cmd: hypervisor version 
+Nov 08 12:13:34.289 HYPERVISOR: exec_cmd: hypervisor working_dir /Users/humbertowoody/Proyectos/IPN/administracion-de-servicios-en-red/practicas/practica3.1-vlsm-ospf/project-files/dynamips 
+Nov 08 12:13:34.289 GENERAL: working_dir=/Users/humbertowoody/Proyectos/IPN/administracion-de-servicios-en-red/practicas/practica3.1-vlsm-ospf/project-files/dynamips
+Nov 08 12:13:34.289 HYPERVISOR: exec_cmd: hypervisor working_dir /Users/humbertowoody/Proyectos/IPN/administracion-de-servicios-en-red/practicas/practica3.1-vlsm-ospf/project-files/dynamips/6039c439-75f2-4a32-9904-6eb99d4e01d1 
+Nov 08 12:13:34.289 GENERAL: working_dir=/Users/humbertowoody/Proyectos/IPN/administracion-de-servicios-en-red/practicas/practica3.1-vlsm-ospf/project-files/dynamips/6039c439-75f2-4a32-9904-6eb99d4e01d1
+Nov 08 12:13:34.289 HYPERVISOR: exec_cmd: vm create R1 1 c7200 
+Nov 08 12:13:34.289 VM: VM R1 created.
+Nov 08 12:13:34.290 HYPERVISOR: exec_cmd: vm set_con_tcp_port R1 5008 
+Nov 08 12:13:34.290 HYPERVISOR: exec_cmd: c7200 get_mac_addr R1 
+Nov 08 12:13:34.290 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 08 12:13:34.290 HYPERVISOR: exec_cmd: vm slot_add_binding R1 0 0 C7200-IO-FE 
+Nov 08 12:13:34.291 HYPERVISOR: exec_cmd: vm set_disk0 R1 0 
+Nov 08 12:13:34.291 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 08 12:13:34.291 HYPERVISOR: exec_cmd: vm set_idle_pc R1 0x608927c0 
+Nov 08 12:13:34.292 HYPERVISOR: exec_cmd: vm set_ios R1 /Users/humbertowoody/GNS3/images/IOS/c7200-a3jk9s-mz.124-25g.image 
+Nov 08 12:13:34.293 HYPERVISOR: exec_cmd: c7200 set_mac_addr R1 ca01.2d5c.0000 
+Nov 08 12:13:34.293 HYPERVISOR: exec_cmd: vm set_nvram R1 512 
+Nov 08 12:13:34.293 HYPERVISOR: exec_cmd: vm set_ram R1 512 
+Nov 08 12:13:34.294 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 08 12:13:34.294 HYPERVISOR: exec_cmd: vm slot_add_binding R1 1 0 PA-2FE-TX 
+Nov 08 12:13:34.294 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 08 12:13:34.294 HYPERVISOR: exec_cmd: vm slot_add_binding R1 2 0 PA-2FE-TX 
+Nov 08 12:13:34.295 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 08 12:13:34.295 HYPERVISOR: exec_cmd: vm slot_add_binding R1 3 0 PA-2FE-TX 
+Nov 08 12:13:34.295 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 08 12:13:34.295 HYPERVISOR: exec_cmd: vm slot_add_binding R1 4 0 PA-2FE-TX 
+Nov 08 12:13:34.296 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 08 12:13:34.296 HYPERVISOR: exec_cmd: vm slot_add_binding R1 5 0 PA-2FE-TX 
+Nov 08 12:13:34.296 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 08 12:13:34.296 HYPERVISOR: exec_cmd: vm slot_add_binding R1 6 0 PA-2FE-TX 
+Nov 08 12:13:34.674 HYPERVISOR: exec_cmd: nio create_udp udp-018899af-2b37-4137-b658-7c745c9bb7ac 10006 127.0.0.1 10007 
+Nov 08 12:13:34.908 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R1 0 0 udp-018899af-2b37-4137-b658-7c745c9bb7ac 
+Nov 08 12:13:34.909 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 08 12:13:35.289 HYPERVISOR: exec_cmd: nio create_udp udp-8ff9daac-f2dd-4a5c-9e64-cd2871366393 10014 127.0.0.1 10015 
+Nov 08 12:13:35.290 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R1 5 0 udp-8ff9daac-f2dd-4a5c-9e64-cd2871366393 
+Nov 08 12:13:35.290 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 08 12:13:36.255 HYPERVISOR: exec_cmd: nio create_udp udp-29ee9e9c-3eb0-40eb-9c3e-ca72c24beed4 10032 127.0.0.1 10033 
+Nov 08 12:13:36.256 HYPERVISOR: exec_cmd: vm slot_add_nio_binding R1 4 0 udp-29ee9e9c-3eb0-40eb-9c3e-ca72c24beed4 
+Nov 08 12:13:36.256 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 08 12:26:24.042 HYPERVISOR: exec_cmd: vm create Ghost 0 c7200 
+Nov 08 12:26:24.044 VM: VM Ghost created.
+Nov 08 12:26:24.074 HYPERVISOR: exec_cmd: vm set_ios Ghost /Users/humbertowoody/GNS3/images/IOS/c7200-a3jk9s-mz.124-25g.image 
+Nov 08 12:26:24.075 HYPERVISOR: exec_cmd: vm set_ghost_status Ghost 1 
+Nov 08 12:26:24.076 HYPERVISOR: exec_cmd: vm set_ghost_file Ghost /Users/humbertowoody/Proyectos/IPN/administracion-de-servicios-en-red/practicas/practica3.1-vlsm-ospf/project-files/dynamips/c7200-a3jk9s-mz.124-25g.image-512.ghost 
+Nov 08 12:26:24.076 HYPERVISOR: exec_cmd: vm set_ram Ghost 512 
+Nov 08 12:26:24.076 HYPERVISOR: exec_cmd: vm get_status Ghost 
+Nov 08 12:26:24.077 HYPERVISOR: exec_cmd: vm set_config Ghost configs/i0_startup-config.cfg 
+Nov 08 12:26:24.077 HYPERVISOR: exec_cmd: vm start Ghost 
+Nov 08 12:26:24.399 HYPERVISOR: exec_cmd: vm get_status Ghost 
+Nov 08 12:26:24.402 HYPERVISOR: exec_cmd: vm stop Ghost 
+Nov 08 12:26:24.595 VM: VM Ghost shutdown.
+Nov 08 12:26:24.596 HYPERVISOR: exec_cmd: vm extract_config Ghost 
+Nov 08 12:26:24.600 HYPERVISOR: exec_cmd: vm clean_delete Ghost 
+Nov 08 12:26:24.600 VM: VM Ghost destroyed.
+Nov 08 12:26:24.606 HYPERVISOR: exec_cmd: vm set_ghost_status R1 2 
+Nov 08 12:26:24.607 HYPERVISOR: exec_cmd: vm set_ghost_file R1 /Users/humbertowoody/Proyectos/IPN/administracion-de-servicios-en-red/practicas/practica3.1-vlsm-ospf/project-files/dynamips/c7200-a3jk9s-mz.124-25g.image-512.ghost 
+Nov 08 12:26:24.607 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 08 12:26:24.607 HYPERVISOR: exec_cmd: vm set_config R1 configs/i1_startup-config.cfg 
+Nov 08 12:26:24.608 HYPERVISOR: exec_cmd: vm start R1 
+Nov 08 12:26:54.855 HYPERVISOR: exec_cmd: vm extract_config R1 
+Nov 08 12:38:58.308 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 08 12:38:58.310 HYPERVISOR: exec_cmd: vm stop R1 
+Nov 08 12:38:58.438 VM: VM R1 shutdown.
+Nov 08 12:38:58.439 HYPERVISOR: exec_cmd: vm extract_config R1 
+Nov 08 12:38:59.674 HYPERVISOR: exec_cmd: vm get_status R1 
+Nov 08 12:38:59.674 HYPERVISOR: exec_cmd: vm extract_config R1 
+Nov 08 12:38:59.675 HYPERVISOR: exec_cmd: vm delete R1 
+Nov 08 12:38:59.675 VM: VM R1 destroyed.
+Nov 08 12:38:59.675 HYPERVISOR: exec_cmd: hypervisor stop 
+Nov 08 12:39:00.023 HYPERVISOR: Stopped.
+Nov 08 12:39:00.023 GENERAL: reset done.
