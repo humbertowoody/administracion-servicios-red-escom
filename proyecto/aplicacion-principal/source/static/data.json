@@ -1,0 +1,22 @@
+[{
+	"host": "R1",
+	"paquetes enviados y recividos": 111,
+	"paquetes dañados": 5,
+	"paquetes perdidos": 15
+},{
+	"host": "R2",
+	"paquetes enviados y recividos": 120,
+	"paquetes dañados": 10,
+	"paquetes perdidos": 1
+},{
+	"host": "R3",
+	"paquetes enviados y recividos": 115,
+	"paquetes dañados": 4,
+	"paquetes perdidos": 12
+},{
+	"host": "R4",
+	"paquetes enviados y recividos": 129,
+	"paquetes dañados": 1,
+	"paquetes perdidos": 1
+}
+]

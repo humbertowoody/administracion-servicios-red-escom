@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Usuarios</title>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='style404.css')}}"
+      type="text/css"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+    />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li>
+          <a href="/menu"
+            ><img src="{{url_for('static',filename='home.png')}}"
+          /></a>
+        </li>
+        <li><a href="/topologia">Topología</a></li>
+        <li><a href="/dispositivos">Dispositivos y usuarios</a></li>
+        <li><a href="/enrutamiento">Enrutamiento</a></li>
+        <li><a href="/usuarios">Usuarios de página</a></li>
+        <li><a href="/bitacora">Bitácora</a></li>
+        <li><a href="/monitoreo">Monitoreo</a></li>
+        <li><a href="/alertas">Alertas</a></li>
+        <li><a href="/">Salir</a></li>
+      </ul>
+    </nav>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <h1 align="center">Usuarios</h1>
+    <section class="error-container">
+      <span>4</span>
+      <span><span class="screen-reader-text">0</span></span>
+      <span>4</span>
+    </section>
+    <div>
+      <h2>Información de los Usuarios de la página</h2>
+      <div class="table100-head" id="tablaB">
+        <table>
+          <thead>
+            <tr class="row100 head">
+              <th class="cell100 column1">Nombre</th>
+              <th class="cell100 column2">Correo</th>
+            </tr>
+          </thead>
+        </table>
+      </div>
+      <div class="table100-body js-pscroll ps ps--active-y" id="tablaB2">
+        <table>
+          <tbody>
+            {% for row in rows %}
+            <tr class="row100 body">
+              <td class="cell100 column1">{{row["nombre"]}}</td>
+              <td class="cell100 column2">{{row["correo"]}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div id="info"></div>
+    </div>
+    <div>
+      <h2>Creación, Modificación y Eliminación de Usuarios</h2>
+      <div id="us">
+        <p id="text">Llene los campos necesarios para la opción que desea</p>
+        <form action="/usuarios" method="POST">
+          <p>
+            <label id="text"> Usuario: </label>
+            <input type="text" name="name" placeholder="Usuario" />
+            <input type="checkbox" name="AU" /> Administrador
+            <input type="checkbox" name="AO" /> Usuario
+          </p>
+          <p>
+            <label id="text"> Password: </label>
+            <input type="password" name="pass" placeholder="Password" />
+          </p>
+          <p>
+            <label id="text"> Correo: </label>
+            <input type="email" name="email" placeholder="Ingrese su correo" />
+          </p>
+          <button
+            class="Boton"
+            type="submit"
+            id="send-signup"
+            name="signup"
+            value="Crear"
+            onclick="validaForm()"
+          >
+            Crear
+          </button>
+          <button
+            class="Boton"
+            type="submit"
+            id="send-signup"
+            name="signup"
+            value="Eliminar"
+            onclick="validaVacio(document.getElementByName('name').value)"
+          >
+            Eliminar
+          </button>
+          <button
+            class="Boton"
+            type="submit"
+            id="send-signup"
+            name="signup"
+            value="Modificar"
+            onclick="validaForm()"
+          >
+            Modificar
+          </button>
+        </form>
+      </div>
+    </div>
+    <script src="{{url_for('static',filename='user.js')}}"></script>
+    <script src="{{url_for('static',filename='user.jsonp')}}"></script>
+  </body>
+</html>

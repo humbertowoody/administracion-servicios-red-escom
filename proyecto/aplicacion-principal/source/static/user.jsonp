@@ -1,0 +1,10 @@
+miCallback([{
+	"usuario": "vytte",
+	"password": "******"	
+},{
+	"usuario": "megairon",
+	"password": "******"	
+},{
+	"usuario": "admin",
+	"password": "******"	
+}])

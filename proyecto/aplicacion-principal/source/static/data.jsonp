@@ -1,0 +1,27 @@
+miCallback([{
+	"host": "null",
+	"eyr": 0,
+	"dañados": 0,
+	"perdidos": 0
+},{
+	"host": "R1",
+	"eyr": 111,
+	"dañados": 5,
+	"perdidos": 15
+},{
+	"host": "R2",
+	"eyr": 120,
+	"dañados": 10,
+	"perdidos": 1
+},{
+	"host": "R3",
+	"eyr": 115,
+	"dañados": 4,
+	"perdidos": 12
+},{
+	"host": "R4",
+	"eyr": 129,
+	"dañados": 1,
+	"perdidos": 1
+}
+])

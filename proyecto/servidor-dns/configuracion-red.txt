@@ -1,0 +1,9 @@
+# IP estática para el servidor DNS.
+auto eth0
+iface eth0 inet static
+	address 192.168.10.10
+	netmask 255.255.255.0
+	gateway 192.168.10.1
+	up echo nameserver 192.168.10.10 > /etc/resolv.conf
+
+hostname servidor-dns-1

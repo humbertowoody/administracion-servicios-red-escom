@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Alertas</title>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='style404.css')}}"
+      type="text/css"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+    />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li>
+          <a href="/menu"
+            ><img src="{{url_for('static',filename='home.png')}}"
+          /></a>
+        </li>
+        <li><a href="/topologia">Topología</a></li>
+        <li><a href="/dispositivos">Dispositivos y usuarios</a></li>
+        <li><a href="/enrutamiento">Enrutamiento</a></li>
+        <li><a href="/usuarios">Usuarios de página</a></li>
+        <li><a href="/bitacora">Bitácora</a></li>
+        <li><a href="/monitoreo">Monitoreo</a></li>
+        <li><a href="/alertas">Alertas</a></li>
+        <li><a href="/">Salir</a></li>
+      </ul>
+    </nav>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <h1 align="center">Alertas</h1>
+    <section class="error-container">
+      <span>4</span>
+      <span><span class="screen-reader-text">0</span></span>
+      <span>4</span>
+    </section>
+    <div>
+      <form action="" method="POST">
+        <label id="text"> Tipo de alerta: </label>
+        <p><input type="checkbox" name="TA" /> Bitacora</p>
+        <p>
+          <input type="checkbox" name="TA" />Porcentaje de Paquetes enviados y
+          recibidos por minuto
+          <input type="number" name="enviados" min="1" max="100" />
+        </p>
+        <p>
+          <input type="checkbox" name="TA" /> Porcentaje de Paquetes dañados por
+          minuto
+          <input type="number" name="dañados" min="1" max="100" />
+        </p>
+        <p>
+          <input type="checkbox" name="TA" /> Porcentaje de Paquetes perdidos
+          por minuto
+          <input type="number" name="perdidos" min="1" max="100" />
+        </p>
+        <p>
+          <label id="text"> Correo: </label>
+          <input type="email" name="correo" />
+        </p>
+        <input
+          type="submit"
+          id="send-signup"
+          name="signup"
+          value="Aceptar"
+          class="Boton"
+        />
+      </form>
+    </div>
+  </body>
+</html>

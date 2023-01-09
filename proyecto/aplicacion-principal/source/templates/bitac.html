@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Bitácora</title>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='style404.css')}}"
+      type="text/css"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+    />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li>
+          <a href="/menu"
+            ><img src="{{url_for('static',filename='home.png')}}"
+          /></a>
+        </li>
+        <li><a href="/topologia">Topología</a></li>
+        <li><a href="/dispositivos">Dispositivos y usuarios</a></li>
+        <li><a href="/enrutamiento">Enrutamiento</a></li>
+        <li><a href="/usuarios">Usuarios de página</a></li>
+        <li><a href="/bitacora">Bitácora</a></li>
+        <li><a href="/monitoreo">Monitoreo</a></li>
+        <li><a href="/alertas">Alertas</a></li>
+        <li><a href="/">Salir</a></li>
+      </ul>
+    </nav>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <h1 align="center">Bitácora</h1>
+    <section class="error-container">
+      <span>4</span>
+      <span><span class="screen-reader-text">0</span></span>
+      <span>4</span>
+    </section>
+    <section>
+      <div>
+        <div>
+          <button class="Boton" id="borrar" onclick="ocultar()">
+            Ocultar registros
+          </button>
+          <button class="Boton" id="cargar" onclick="mostrar()">
+            Cargar registros
+          </button>
+        </div>
+        <br />
+        <div id="tablaB" style="display: {{disp}}">
+          <h4>Ordenar columnas por:</h4>
+          <form action="" method="POST">
+            <button
+              class="Boton"
+              type="submit"
+              id="send-signup"
+              name="signup"
+              value="usuario"
+            >
+              Usuario
+            </button>
+            <button
+              class="Boton"
+              type="submit"
+              id="send-signup"
+              name="signup"
+              value="accion"
+            >
+              Accion
+            </button>
+            <button
+              class="Boton"
+              type="submit"
+              id="send-signup"
+              name="signup"
+              value="fecha"
+            >
+              Fecha
+            </button>
+          </form>
+        </div>
+        <div class="table100-head" id="tablaB2" style="display: {{disp}}">
+          <table>
+            <thead>
+              <tr class="row100 head">
+                <th class="cell100 column1">Usuario</th>
+                <th class="cell100 column2">Accion realizada</th>
+                <th class="cell100 column3">Fecha de realizacion</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div
+          class="table100-body js-pscroll ps ps--active-y"
+          id="tablaB3"
+          style="display: {{disp}}"
+        >
+          <table>
+            <tbody>
+              {% for row in rows %}
+              <tr class="row100 body">
+                <td class="cell100 column1">{{row["usuario"]}}</td>
+                <td class="cell100 column2">{{row["accion"]}}</td>
+                <td class="cell100 column3">{{row["fecha"]}}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    <script
+      language="javascript"
+      src="{{url_for('static',filename='bitac.js')}}"
+    ></script>
+    <script
+      language="javascript"
+      src="{{url_for('static',filename='bitac.jsonp')}}"
+    ></script>
+  </body>
+</html>

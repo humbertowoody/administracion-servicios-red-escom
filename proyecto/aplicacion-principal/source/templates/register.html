@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Crear usuario</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='master.css')}}" type="text/css"/>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  </head>
+  <body>
+
+    <div class="login-box">
+      <img src="{{url_for('static',filename='ESCOM.png')}}"class="avatar" alt="Avatar Image">
+      <h1>Introduzca datos</h1>
+      <form  action = "{{ url_for('regis') }}" method = "POST">
+        <!-- USERNAME INPUT -->
+        <label for="username">Nombre de usuario</label>
+        <input type="text" name = "na" placeholder="Usuario">
+        <label for="username">Correo electronico</label>
+        <input type="text" name = "cr" placeholder="correo">
+        <!-- PASSWORD INPUT -->
+        <label for="password">Contraseña</label>
+        <input type="password" name = "ps" placeholder="contraseña">
+        <label for="cbox2">Administrador</label><input type="checkbox" name = ch>
+        <input type="submit" value="Entrar">
+
+      </form>
+    </div>
+  </body>
+</html>

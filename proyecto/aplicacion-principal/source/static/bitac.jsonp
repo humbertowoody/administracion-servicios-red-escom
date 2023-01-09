@@ -1,0 +1,12 @@
+miCallback([{
+	"Acción": "Alerta Porcentaje de paquetes perdidos",
+	"Por": "Rodrigo Vite",
+	"Dispositivo": "R1",
+	"Hora": "12:00:00"
+},{
+	"Acción": "Modificación datos del dispositivo",
+	"Por": "David Estrada",
+	"Dispositivo": "R4",
+	"Hora": "23:11:15"
+}
+])

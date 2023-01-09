@@ -1,0 +1,111 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+body{ 
+	background: #333;/*linear-gradient(0deg,#FFF,#56070C,#56070C); */
+	background-repeat: no-repeat;
+	font-family: 'Montserrat';
+	color: white;
+}            
+nav{
+	position: absolute;
+	left: 20%;
+	margin: 0px 0 0 -120px;
+	display: block;
+	border: 1px solid white;
+	border-radius: 15px;
+}
+nav ul{
+	/*background: #48CFAD;*/
+	background: transparent;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+nav ul li{
+	position: relative;
+	display: inline-block;
+	margin-right: -4px;
+	text-align: center;
+}
+nav ul li:first-child a{
+	/*background: #37BC9B;*/
+	background: transparent;
+	width: 40px;
+	/*padding: 15px 0;*/
+	border-radius: 14px 0 0 14px;
+}
+nav ul li:last-child a{
+	/* margin: 0; */
+	border-radius: 0 14px 14px 0;
+	/* border: 2px solid red; */
+}
+nav ul li a{
+	display: block;
+	/*background: #48CFAD;*/
+	background: transparent;
+	padding: 15px 20px;
+	color: #FFF;
+	font-size: 16px;
+	text-decoration: none;
+	transition: 0.2s linear;
+}
+nav ul li a:hover{
+	background-color: whitesmoke;
+	color: #333;
+}
+p{
+	font-size: 28px;
+}
+form {
+	display: grid;
+	padding: 1em;
+	border: 1px solid #c1c1c1;
+	margin: 2rem auto 0 auto;
+	max-width: 400px;
+	padding: 1em;
+}
+form input {
+	background: #fff;
+	border: 1px solid #9c9c9c;
+}
+.contenedor{
+	color: #FFF; 
+	width:100%;
+	height:135px;
+	display: flex; 
+	justify-content: space-between;
+}
+.contenido{
+	height:80px;
+	width:10%;
+	float:left;
+	margin: 10px;
+	border-radius: 5px;
+}
+.Boton{ 
+	cursor: pointer; 
+	text-decoration: none; 
+	padding: 3px; 
+	padding-left: 10px; 
+	padding-right: 10px; 
+	font-family: Comic Sans; 
+	font-weight: 200;
+	font-size: 20px; 
+	font-style: italic; 
+	color: #000; 
+	background-color: #37BC9B; 
+	border-radius: 15px;
+	border: 3px double #2E3192;
+}
+.Boton:hover{ 
+	background-color: #FFF; 
+	opacity: 0.6; 
+	text-decoration: none;
+}
+#mynetwork {
+    width: 800px;
+    height: 800px;
+    background-color: #ffffff;
+    border: 1px solid lightgray;
+    position: relative;
+    float: left;
+}

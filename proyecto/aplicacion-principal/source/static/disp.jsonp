@@ -1,0 +1,20 @@
+miCallback([{
+	"usuarios": "admin, vytte",
+	"host": "R1",
+	"SO": "cisco",
+	"responsable": "Rodrigo Vite",
+	"ubicacion": "Informatica",
+	"contacto": "7461143485",
+	"tiempoEm": "1hr",
+	"ultimaMod": "27/04/21"
+},{
+	"usuarios": "admin,megairon",
+	"host": "R2",
+	"SO": "cisco",
+	"responsable": "David Estrada",
+	"ubicacion": "Diseño",
+	"contacto": "5536610337",
+	"tiempoEm": "12hr",
+	"ultimaMod": "28/04/21"
+}
+])

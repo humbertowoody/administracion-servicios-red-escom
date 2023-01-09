@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+  <head>
+    <title>Topología</title>
+    <link
+      rel="stylesheet"
+      href="{{url_for('static',filename='style404.css')}}"
+      type="text/css"
+    />
+    <link
+      rel="shortcut icon"
+      href="{{ url_for('static', filename='favicon.ico') }}"
+    />
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li>
+          <a href="/menu">Inicio</a>
+        </li>
+        <li><a href="/topologia">Topología</a></li>
+        <li><a href="/dispositivos">Dispositivos y usuarios</a></li>
+        <li><a href="/enrutamiento">Enrutamiento</a></li>
+        <li><a href="/usuarios">Usuarios de página</a></li>
+        <li><a href="/bitacora">Bitácora</a></li>
+        <li><a href="/monitoreo">Monitoreo</a></li>
+        <li><a href="/alertas">Alertas</a></li>
+        <li><a href="/">Salir</a></li>
+      </ul>
+    </nav>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <h1 align="center">Topología</h1>
+    <!-- <section class="error-container">
+      <span>4</span>
+      <span><span class="screen-reader-text">0</span></span>
+      <span>4</span>
+    </section> -->
+    <section id="tiempo">
+      <form action="" method="post">
+        <p id="text">Tiempo para el ciclo de detección</p>
+        <label> Tiempo (seg) </label>
+        <input type="number" name="name" min="0" />
+        <input
+          type="submit"
+          id="send-signup"
+          name="signup"
+          value="Enviar"
+          class="Boton"
+        />
+        <input
+          type="submit"
+          id="send-signup"
+          name="signup"
+          value="Forzar deteccion"
+          class="Boton"
+        />
+      </form>
+    </section>
+    <section class="col-lg-7 connectedSortable">
+      <div class="box box-solid">
+        <div class="box-body border-radius-none">{% include "topo.html" %}</div>
+      </div>
+    </section>
+  </body>
+</html>

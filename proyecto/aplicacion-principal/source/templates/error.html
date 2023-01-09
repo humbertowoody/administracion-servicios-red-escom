@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Error 404</title>
+		<link rel="stylesheet" href="{{url_for('static',filename='style404.css')}}" type="text/css"/>
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+	</head>
+	<body>
+  		<nav>
+    		<ul>
+    			<li><a href="/menu"><img src="{{url_for('static',filename='home.png')}}"></a></li>
+		    </ul>
+		</nav>
+    	<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<h1 align="center">No cuenta con los permisos requeridos, contacte a un administrador</h1>
+		<section class="error-container">
+			<span>4</span>
+			<span><span class="screen-reader-text">0</span></span>
+			<span>4</span>
+		</section>
+	</body>
+</html>

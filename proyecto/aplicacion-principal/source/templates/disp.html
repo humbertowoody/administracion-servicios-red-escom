@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+	<head>
+		<title> Dispositivos de Red </title>
+		<link rel="stylesheet" href="{{url_for('static',filename='style404.css')}}" type="text/css"/>
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+	</head>
+	<body>
+		<nav>
+    		<ul>
+    			<li><a href="/menu"><img src="{{url_for('static',filename='home.png')}}"></a></li>
+    			<li><a href="/topologia">Topología</a></li>
+    			<li><a href="/dispositivos">Dispositivos y usuarios</a></li>
+		        <li><a href="/enrutamiento">Enrutamiento</a></li>
+		        <li><a href="/usuarios">Usuarios de página</a></li>
+		        <li><a href="/bitacora">Bitácora</a></li>
+		        <li><a href="/monitoreo">Monitoreo</a></li>
+		        <li><a href="/alertas">Alertas</a></li>
+		        <li><a href="/">Salir</a></li>
+		    </ul>
+		</nav>
+		<br>
+		<br>
+		<br>
+		<br>
+		<h1 align="center"> Dispositivos y usuarios </h1>
+		<section class="error-container">
+			<span>4</span>
+			<span><span class="screen-reader-text">0</span></span>
+			<span>4</span>
+		</section>
+		<div>
+			<h2> Información de los dispositivos </h2>
+			<form action="" method="put">
+				<button class="Boton" type="submit" id="mostrarI" name="signup" value="Info">Motrar info</button>
+			</form>
+			<div id="info"></div>
+		</div>
+		<div>
+			<h2> Creación, Modificación o Eliminación de Usuarios </h2>
+			<form action="" method="post">
+				<p id="text"> Llene los campos necesarios para la opción que desea </p>
+				<p>
+					<p id="text"> Seleccione a que dispositivo se va a realizar su opción </p>
+					<select name=routers>
+						<option value="null">Elige una opción</option>
+						<option value="Todos">Todos</option>
+					{% for host in hosts -%}
+						<option value="{{host}}">{{host}}</option>
+					{% endfor -%}
+					</select>
+				</p>
+				<p>
+					<label id="text"> Usuario: </label>
+					<input type="text" name="name" placeholder="Usuario"/>
+				</p>
+				<p>
+					<label id="text"> Password: </label>
+					<input type="password" name="pss" placeholder="Password"/>
+				</p>
+				<p>	
+					<label id="text"> Privilegios (0-15): </label>
+					<input type="number" name="prv" placeholder="Privilegio" min="0" max="15"/>
+				</p>
+				<button class="Boton" type="submit" id="send-signup" name="signup" value="Crear">Crear</button>
+				<button class="Boton" type="submit" id="send-signup" name="signup" value="Eliminar">Eliminar</button>
+				<button class="Boton" type="submit" id="send-signup" name="signup" value="Modificar">Modificar</button>
+			</form>
+		</div>
+		<script src="{{url_for('static',filename='disp.js')}}"></script>
+		<script src="{{url_for('static',filename='disp.jsonp')}}"></script>
+	</body>
+</html>

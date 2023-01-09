@@ -1,0 +1,4 @@
+zone "proyecto-final.com" {
+  type master;
+  file "/etc/bind/zones/db.proyecto-final.com";
+};
