@@ -1,0 +1,146 @@
+[
+  {
+    "hostname": "TOR1",
+    "interfaces": [
+      {
+        "name": "FastEthernet0/0",
+        "ip": "192.168.0.1",
+        "netmask": "255.255.255.0",
+        "idnet": "192.168.0.0/24"
+      },
+      {
+        "name": "FastEthernet1/0",
+        "ip": "10.10.10.18",
+        "netmask": "255.255.255.252",
+        "idnet": "10.10.10.16/30"
+      },
+      {
+        "name": "FastEthernet1/1",
+        "ip": "10.10.10.14",
+        "netmask": "255.255.255.252",
+        "idnet": "10.10.10.12/30"
+      },
+      {
+        "name": "FastEthernet2/0",
+        "ip": "192.168.1.1",
+        "netmask": "255.255.255.0",
+        "idnet": "192.168.1.0/24"
+      }
+    ]
+  },
+  {
+    "hostname": "R1",
+    "interfaces": [
+      {
+        "name": "FastEthernet0/0",
+        "ip": "10.10.10.2",
+        "netmask": "255.255.255.252",
+        "idnet": "10.10.10.0/30"
+      },
+      {
+        "name": "FastEthernet1/0",
+        "ip": "10.10.10.17",
+        "netmask": "255.255.255.252",
+        "idnet": "10.10.10.16/30"
+      },
+      {
+        "name": "FastEthernet1/1",
+        "ip": "10.10.10.9",
+        "netmask": "255.255.255.252",
+        "idnet": "10.10.10.8/30"
+      }
+    ]
+  },
+  {
+    "hostname": "R2",
+    "interfaces": [
+      {
+        "name": "FastEthernet0/0",
+        "ip": "10.10.10.6",
+        "netmask": "255.255.255.252",
+        "idnet": "10.10.10.4/30"
+      },
+      {
+        "name": "FastEthernet1/0",
+        "ip": "10.10.10.21",
+        "netmask": "255.255.255.252",
+        "idnet": "10.10.10.20/30"
+      },
+      {
+        "name": "FastEthernet1/1",
+        "ip": "10.10.10.13",
+        "netmask": "255.255.255.252",
+        "idnet": "10.10.10.12/30"
+      }
+    ]
+  },
+  {
+    "hostname": "Edge",
+    "interfaces": [
+      {
+        "name": "FastEthernet0/0",
+        "ip": "20.20.30.2",
+        "netmask": "255.255.255.252",
+        "idnet": "20.20.30.0/30"
+      },
+      {
+        "name": "FastEthernet1/0",
+        "ip": "10.10.10.1",
+        "netmask": "255.255.255.252",
+        "idnet": "10.10.10.0/30"
+      },
+      {
+        "name": "FastEthernet1/1",
+        "ip": "10.10.10.5",
+        "netmask": "255.255.255.252",
+        "idnet": "10.10.10.4/30"
+      }
+    ]
+  },
+  {
+    "hostname": "TOR2",
+    "interfaces": [
+      {
+        "name": "FastEthernet1/0",
+        "ip": "10.10.10.22",
+        "netmask": "255.255.255.252",
+        "idnet": "10.10.10.20/30"
+      },
+      {
+        "name": "FastEthernet1/1",
+        "ip": "10.10.10.10",
+        "netmask": "255.255.255.252",
+        "idnet": "10.10.10.8/30"
+      },
+      {
+        "name": "FastEthernet2/0",
+        "ip": "192.168.10.1",
+        "netmask": "255.255.255.0",
+        "idnet": "192.168.10.0/24"
+      },
+      {
+        "name": "FastEthernet2/1",
+        "ip": "192.168.11.1",
+        "netmask": "255.255.255.0",
+        "idnet": "192.168.11.0/24"
+      }
+    ]
+  },
+  {
+    "hostname": "ISP",
+    "interfaces": [
+      {
+        "name": "FastEthernet0/0",
+        "ip": "20.20.30.1",
+        "netmask": "255.255.255.252",
+        "idnet": "20.20.30.0/30"
+      },
+      {
+        "name": "FastEthernet1/0",
+        "ip": "20.20.20.1",
+        "netmask": "255.255.255.0",
+        "idnet": "20.20.20.0/24"
+      }
+    ]
+  }
+]

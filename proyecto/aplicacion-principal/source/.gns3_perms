@@ -1,6 +1,10 @@
+644:501:20:/app/net_router.json
+644:501:20:/app/responde.json
 644:501:20:/app/requirements.txt
+644:501:20:/app/funciones.py
 644:501:20:/app/detecta.py
-644:501:20:/app/esto_debería_estar.txt
+644:501:20:/app/conexiones_r.json
+644:501:20:/app/arr_interconexiones.json
 644:501:20:/app/multi.py
 644:501:20:/app/module_scan.py
 644:501:20:/app/__pycache__/ssh_connect.cpython-310.pyc
@@ -10,6 +14,7 @@
 644:501:20:/app/__pycache__/pro.cpython-310.pyc
 644:501:20:/app/__pycache__/dibujo.cpython-310.pyc
 644:501:20:/app/__pycache__/enru.cpython-310.pyc
+644:501:20:/app/__pycache__/app.cpython-310.pyc
 755:501:20:/app/__pycache__
 644:501:20:/app/ssh_connect.py
 644:501:20:/app/c.py
@@ -91,6 +96,19 @@
 644:501:20:/app/static/fondo.jpg
 644:501:20:/app/static/bitac.jsonp
 755:501:20:/app/static
+644:501:20:/app/app.py
+755:501:20:/app/lib/vis-9.0.4/vis-network.min.js
+755:501:20:/app/lib/vis-9.0.4/vis-network.css
+755:501:20:/app/lib/vis-9.0.4
+755:501:20:/app/lib/tom-select/tom-select.complete.min.js
+755:501:20:/app/lib/tom-select/tom-select.css
+755:501:20:/app/lib/tom-select
+755:501:20:/app/lib/vis-9.1.2/vis-network.min.js
+755:501:20:/app/lib/vis-9.1.2/vis-network.css
+755:501:20:/app/lib/vis-9.1.2
+755:501:20:/app/lib/bindings/utils.js
+755:501:20:/app/lib/bindings
+755:501:20:/app/lib
 644:501:20:/app/templates/bitac.html
 644:501:20:/app/templates/index.html
 644:501:20:/app/templates/topo.html
@@ -98,6 +116,7 @@
 644:501:20:/app/templates/user.html
 644:501:20:/app/templates/login.html
 644:501:20:/app/templates/data.html
+644:501:20:/app/templates/topologia.html
 644:501:20:/app/templates/TA.html
 644:501:20:/app/templates/alertas.html
 644:501:20:/app/templates/error.html
@@ -110,5 +129,7 @@
 644:501:20:/app/configuracion_rapida_router.py
 644:501:20:/app/main.py
 644:501:20:/app/.gns3_perms
+644:501:20:/app/hosts.json
 644:501:20:/app/enru.py
+644:501:20:/app/res.json
 755:501:20:/app

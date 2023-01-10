@@ -4,7 +4,7 @@
     <title>Topología</title>
     <link
       rel="stylesheet"
-      href="{{url_for('static',filename='style404.css')}}"
+      href="{{url_for('static',filename='style.css')}}"
       type="text/css"
     />
     <link
@@ -60,10 +60,11 @@
         />
       </form>
     </section>
-    <section class="col-lg-7 connectedSortable">
+    <iframe frameborder="1">{% include 'topo.html' %}</iframe>
+    <!-- <section class="col-lg-7 connectedSortable">
       <div class="box box-solid">
         <div class="box-body border-radius-none">{% include "topo.html" %}</div>
       </div>
-    </section>
+    </section> -->
   </body>
 </html>

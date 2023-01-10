@@ -310,7 +310,7 @@ def user():
 				return render_template("user.html", rows=rows)
 
 
-@app.route('/Bita', methods=["GET", "POST"])
+@app.route('/bitacora', methods=["GET", "POST"])
 def bita():
 		#print("hola\n")
 		global consultado
@@ -354,14 +354,14 @@ def bita():
 				return render_template("bitac.html", rows=rows, disp=dis)
 
 
-@app.route('/MonData')
+@app.route('/monitoreo')
 def data():
 		#print("hola\n")
 		host = obtHost()
 		return render_template("data.html", hosts=host)
 
 
-@app.route('/Alerts', methods=["GET", "POST"])
+@app.route('/alertas', methods=["GET", "POST"])
 def alerts():
 		#print("hola\n")
 		global user

@@ -1,0 +1,8 @@
+[
+  { "hostname": "TOR1", "ip": "192.168.1.1" },
+  { "hostname": "R1", "ip": "10.10.10.9" },
+  { "hostname": "R2", "ip": "10.10.10.13" },
+  { "hostname": "Edge", "ip": "10.10.10.5" },
+  { "hostname": "TOR2", "ip": "192.168.11.1" },
+  { "hostname": "ISP", "ip": "20.20.20.1" }
+]

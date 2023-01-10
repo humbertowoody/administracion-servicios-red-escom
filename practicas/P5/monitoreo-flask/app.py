@@ -47,7 +47,7 @@ def funcion_hilo_obtener_conteo():
 # trap que recibamos.
 def funcion_callback(snmpEngine, stateReference, contextEngineId, contextName, varBinds, cbCtx):
     # Imprimimos que se recibió un trap.
-	print("Se recibió un trap de SNMP."sudo route del -net 0.0.0.0 gw 192.168.10.1 netmask 0.0.0.0 dev virbr0)
+	print("Se recibió un trap de SNMP.")
 	
     # Iteramos sobre la información obtenida.
 	for name, val in varBinds: 
@@ -114,7 +114,7 @@ def index():
 @app.route('/conteo')
 def conteo():
     """
-    Ruta que obtieene el conteo de paquetes en la interfaz y muestra el valor
+    Ruta que obtiene el conteo de paquetes en la interfaz y muestra el valor
     actual renderizado dentro de una vista HTML.
     """
     # Llamamos a la función de conteo.

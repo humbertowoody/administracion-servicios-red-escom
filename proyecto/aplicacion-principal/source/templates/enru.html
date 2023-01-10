@@ -4,7 +4,7 @@
     <title>Enrutamiento</title>
     <link
       rel="stylesheet"
-      href="{{url_for('static',filename='style404.css')}}"
+      href="{{url_for('static',filename='style.css')}}"
       type="text/css"
     />
     <link
@@ -16,9 +16,7 @@
     <nav>
       <ul>
         <li>
-          <a href="/menu"
-            ><img src="{{url_for('static',filename='home.png')}}"
-          /></a>
+          <a href="/menu">Inicio</a>
         </li>
         <li><a href="/topologia">Topología</a></li>
         <li><a href="/dispositivos">Dispositivos y usuarios</a></li>
@@ -65,7 +63,7 @@
           type="submit"
           id="default"
           name="signup"
-          value="default"
+          value="Configurar routers..."
           onclick="defa()"
         >
           Default

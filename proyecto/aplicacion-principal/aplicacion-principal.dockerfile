@@ -22,9 +22,8 @@ RUN pip install -r /app/requirements.txt
 COPY source /app/
 
 # Exponemos el puerto 5000 que usará Flask.
-EXPOSE 5000 5500
+EXPOSE 5000
 
 # Ejecutamos la aplicación de Flask
-# CMD [ "python3", "-m", "flask", "--app", "./pro.py", "run", "--host=0.0.0.0" ]
-# CMD ["python3", "pro.py"]
-ENTRYPOINT [ "/bin/bash" ]
+CMD ["flask", "--app", "app.py", "--debug", "run", "--host=0.0.0.0", "--port=5000"]
+

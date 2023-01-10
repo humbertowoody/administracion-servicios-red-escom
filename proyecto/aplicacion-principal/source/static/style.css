@@ -87,17 +87,16 @@ form input {
 	padding: 3px; 
 	padding-left: 10px; 
 	padding-right: 10px; 
-	font-family: Comic Sans; 
 	font-weight: 200;
 	font-size: 20px; 
-	font-style: italic; 
 	color: #000; 
-	background-color: #37BC9B; 
+	background-color: whitesmoke; 
 	border-radius: 15px;
-	border: 3px double #2E3192;
+	border: 3px solid black;
 }
 .Boton:hover{ 
-	background-color: #FFF; 
+	background-color: #333; 
+	color: white;
 	opacity: 0.6; 
 	text-decoration: none;
 }
