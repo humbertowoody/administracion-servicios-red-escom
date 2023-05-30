@@ -12,6 +12,7 @@ def conectar(cisco,cmd):
     output=[]
     for i in range(len(cmd)):
         output.append(net_connect.send_command(cmd[i]))
+    net_connect.disconnect()
     return output
 
 def conectarT(cisco,cmd):

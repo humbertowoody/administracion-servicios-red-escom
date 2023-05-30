@@ -7,14 +7,18 @@ from pysnmp.entity.rfc3413 import ntfrcv
 from pysnmp.proto.secmod.rfc2576 import udp
 from time import sleep
 from threading import Thread
-from dibujo import construirDibujoTopologia, copiar_archivos, eliminar
-
+from dibujo import construirDibujoTopologia, copiar_archivos, eliminar, b64_img_de_metricas_router
+from snmp import obtener_valor_oid, oid_para_uptime, oid_para_syscontact, oid_para_hostname, oid_para_syslocation, oid_para_sysdescription, oid_paquetes_entrantes_interfaz, oid_paquetes_salientes_interfaz, oid_paquetes_erroneos_interfaz, colocar_valor_oid
+from constantes import COMUNIDAD_DEFAULT, PASS_GMAIL
+from enrutamiento import obtener_enrutamiento_routers, actualizar_enrutamiento
+import smtplib
+from usuario import crear_usuario
 
 # Inicializar la aplicación de Flask.
 app = Flask(__name__)
 
 # Variables globales.
-tiempo_muestreo = 30
+tiempo_muestreo = 5
 conexiones_r = [
   {
     "hostname": "TOR1",
@@ -243,7 +247,8 @@ hosts = [
   { "hostname": "TOR2", "ip": "192.168.11.1" },
   { "hostname": "ISP", "ip": "20.20.20.1" }
 ]
-
+metricas_por_router = {}
+usuarios_router = {}
 
 # Función que escanea la red cada X tiempo.
 def funcion_hilo_escanear_red():
@@ -259,71 +264,150 @@ def funcion_hilo_escanear_red():
 
   # Ciclo infinito
   while True:
-    # Medimos tiempo de inicio.
-    inicio = datetime.now()
+    # Todo dentry de un try/catch
+    try:
+      # Medimos tiempo de inicio.
+      inicio = datetime.now()
 
-    # Escaneamos la red.
-    resultado = scan_by_interface("eth0", "admin", "admin01", "12345678")
+      # Escaneamos la red.
+      resultado = scan_by_interface("eth0", "admin", "admin01", "12345678")
 
-    # Medimos tiempo de fin.
-    fin = datetime.now()
+      # Medimos tiempo de fin.
+      fin = datetime.now()
 
-    # Ajustamos el tiempo de recorrido a la duración de la última ejecución.
-    tiempo_entre_escaneos = fin - inicio
+      # Ajustamos el tiempo de recorrido a la duración de la última ejecución.
+      tiempo_entre_escaneos = fin - inicio
 
-    # Ajustamos los datos.
-    conexiones_r = resultado[0]
-    arr_interconexiones = resultado[1]
-    net_router = resultado[2]
-    responde = resultado[3]
-    hosts = resultado[4]
+      # Ajustamos los datos.
+      conexiones_r = resultado[0]
+      arr_interconexiones = resultado[1]
+      net_router = resultado[2]
+      responde = resultado[3]
+      hosts = resultado[4]
 
-    # Pausa de 5 minutos.
-    sleep(tiempo_entre_escaneos.total_seconds() + 30)
+      # Mensajze de ejecución.
+      print("Red escaneada correctamente")
+
+      # Pausa de la menor cantidad de tiempo posible.
+      sleep(tiempo_entre_escaneos.total_seconds())
+    except:
+      print("[ERROR] No se pudo escanear la red.")
 
 # Función que cada X tiempo obtiene las métricas requeridas.
 def funcion_hilo_obtener_metricas():
   # Variables globales usadas.
   global tiempo_muestreo
+  global metricas_por_router
+  global hosts
 
   # Ciclo infinito.
   while True:
-    # Obtenemos la hora actual.
-    ahora = datetime.now()
+    # Todo dentro de un try/catch.
+    try:
+      # Iteramos sobre los enrutadores.
+      for enrutador in hosts:
+        # Validamos que el enrutador esté en el diccionario.
+        if enrutador["hostname"] not in metricas_por_router:
+          # Creamos el diccionario vacío.
+          metricas_por_router[enrutador["hostname"]] = {
+            "1": {
+              "fechas": [],
+              "paquetes_entrantes": [],
+              "paquetes_salientes": [],
+              "paquetes_erroneos": []
+            },
+            "2": {
+              "fechas": [],
+              "paquetes_entrantes": [],
+              "paquetes_salientes": [],
+              "paquetes_erroneos": []
+            },
+            "3": {
+              "fechas": [],
+              "paquetes_entrantes": [],
+              "paquetes_salientes": [],
+              "paquetes_erroneos": []
+            },
+            "4": {
+              "fechas": [],
+              "paquetes_entrantes": [],
+              "paquetes_salientes": [],
+              "paquetes_erroneos": []
+            },
+            "5": {
+              "fechas": [],
+              "paquetes_entrantes": [],
+              "paquetes_salientes": [],
+              "paquetes_erroneos": []
+            },
+          }
 
-    # Obtenemos la métrica actual.
+        # Iteramos sobre las 5 interfaces.
+        for interfaz in range(1,6):
+          # Guardamos la fecha actual.
+          metricas_por_router[enrutador["hostname"]][f'{interfaz}']["fechas"].append(datetime.now())
 
-    # Agregamos la fecha a nuestro arreglo.
+          # Paquetes entrantes.
+          metricas_por_router[enrutador["hostname"]][f'{interfaz}']["paquetes_entrantes"].append(
+            obtener_valor_oid(enrutador["ip"], COMUNIDAD_DEFAULT, oid_paquetes_entrantes_interfaz(interfaz))
+          )
 
-    # Pausa.
-    sleep(tiempo_muestreo)
+          # Paquetes salientes.
+          metricas_por_router[enrutador["hostname"]][f'{interfaz}']["paquetes_salientes"].append(
+            obtener_valor_oid(enrutador["ip"], COMUNIDAD_DEFAULT, oid_paquetes_salientes_interfaz(interfaz))
+          )
 
+          # Paquetes erróneos.
+          metricas_por_router[enrutador["hostname"]][f'{interfaz}']["paquetes_erroneos"].append(
+            obtener_valor_oid(enrutador["ip"], COMUNIDAD_DEFAULT, oid_paquetes_erroneos_interfaz(interfaz))
+          )
 
-# Definición de la función de callback que se ejecutará por cada
-# trap que recibamos.
+      # Mensaje de ejecución
+      print("Métricas obtenidas correctamente")
+
+      # Pausa.
+      sleep(tiempo_muestreo)
+    except:
+      # Mensaje de error.
+      print(f"[ERROR] No se pudieron leer las métricas.")
+
+      # Pausa
+      sleep(tiempo_muestreo)
+
+# Definición de la función de callback que se ejecutará por cada trap que recibamos.
 def funcion_callback(snmpEngine, stateReference, contextEngineId, contextName, varBinds, cbCtx):
     # Imprimimos que se recibió un trap.
   print("Se recibió un trap de SNMP.")
+
+  execContext = snmpEngine.observer.getExecutionContext(
+        'rfc3412.receiveMessage:request'
+    )
+
+  print('Notification from %s:%s' % execContext['transportAddress'])
+
+  print("varBinds:")
   
   # Iteramos sobre la información obtenida.
-  # for name, val in varBinds: 
-  #       # Impresión de debug.
-  #       print(f"Debug trap: {name.prettyPrint()} : {val.prettyPrint()}")
-  
-  #       # Verificamos si está caída.
-  #       if val.prettyPrint() == "administratively down":
-  #         # Está caída
-  #         estados.append(0) 
+  for name, val in varBinds: 
+        # Impresión de debug.
+        print(f"\t- name: {name.prettyPrint()} ; valor: {val.prettyPrint()}")
 
-  #         # Guardamos la fecha actual.
-  #         fechas_traps.append(datetime.now())
+        print ('Enviando mail...')
 
-  #       elif val.prettyPrint() == "up":
-  #         # Está levantada
-  #         estados.append(1)
+        # Email details
+        sender_email = "humbertowoody@gmail.com"
+        receiver_email = "humbertowoody@example.com"
+        password = PASS_GMAIL
+        message = f'Se detectó nuevo trap de SNMP: \n{json.dumps(varBinds, default=str, indent=4)}'
 
-  #         # Guardamos la fecha actual.
-  #         fechas_traps.append(datetime.now())
+        # Send email
+        server = smtplib.SMTP("1.1.1.1", 587)
+        server.starttls()
+        server.login(sender_email, password)
+        server.sendmail(sender_email, receiver_email, message)
+        server.quit()
+
+        print('Mail enviado!')
 
 # Función para el hilo que captura los traps.
 def funcion_hilo_traps():
@@ -343,8 +427,8 @@ def funcion_hilo_traps():
     # Configuramos nuestra función de callback para cada dato recibido.
     ntfrcv.NotificationReceiver(snmpEngine, funcion_callback)
 
-    # Iniciamos el trabajo de escucha de traps.	
-    snmpEngine.transportDispatcher.jobStarted(1)  
+    # Iniciamos el trabajo de escucha de traps.
+    snmpEngine.transportDispatcher.jobStarted(1)
   
     # Iniciamos el trabajo dentro de un try/catch.
     try:
@@ -361,7 +445,7 @@ def funcion_hilo_traps():
     return 
 
 # Ruta principal.
-@app.route('/')
+@app.route('/', methods=["GET"])
 def inicio():
     return json.dumps({
         "materia": {
@@ -370,7 +454,7 @@ def inicio():
           "grupo": "4CM11"
         },
         "equipo": {
-          "nombre": "electroadictos",
+          "nombre": "ElectroAdictos",
           "integrantes": [
             "Godínez Morales Mario Sebastián",
             "González Barrientos Geovanni Daniel",
@@ -381,36 +465,154 @@ def inicio():
         "fecha": str(datetime.now())
     }), 200, {'Content-Type': 'application/json'}
 
-@app.route('/enrutadores')
+@app.route('/enrutadores', methods=["GET"])
 def obtener_enrutadores():
+  # Variables globales.
   global conexiones_r
-  return json.dumps(conexiones_r), 200, {'Content-Type': 'application/json'}
+
+  # Regresamos la información en formato JSON.
+  return json.dumps(conexiones_r, default=str), 200, {'Content-Type': 'application/json'}
+
+@app.route('/enrutadores/metricas', methods=["GET"])
+def obtener_metricas_enrutadores():
+  # Variables globales
+  global metricas_por_router
+
+  # Regresamos un JSON con las métricas hasta ahora.
+  return json.dumps(metricas_por_router, default=str), 200, {'Content-Type': "application/json"}
 
 @app.route('/enrutadores/<id>')
 def obtener_enrutador(id: str):
+  # Variables globales.
   global conexiones_r
+
+  # Iteramos sobre cada enrutador
   for enrutador in conexiones_r:
+    # Si encontramos el que especificó el usuario, lo regresamos.
     if enrutador["hostname"] == id:
       return json.dumps(enrutador), 200, {'Content-Type': 'application/json'}
-    
+  
+  # Si no lo encontramos, 404.
   return json.dumps({"error": "el enrutador no existe o no ha sido detectado aún"}), 404, {'Content-Type': 'application/json'}
 
 @app.route('/enrutadores/<id>/snmp', methods=["GET", "PUT"])
 def enturador_snmp(id: str):
-  return f"obteniendo snmp para {id}"
+  # Variables globales
+  global hosts
 
-@app.route('/enrutadores/<id>/usuarios', methods=["GET", "POST", "PUT"])
+  # Iteramos sobre los hosts.
+  for host in hosts:
+    # Si encontramos el que especificó el usuario, calculamos sus datos.
+    if host["hostname"] == id:
+      # Si es GET...
+      if request.method == "GET":
+        return json.dumps({
+          "uptime": obtener_valor_oid(host["ip"], COMUNIDAD_DEFAULT, oid_para_uptime()),
+          "hostname": obtener_valor_oid(host["ip"], COMUNIDAD_DEFAULT, oid_para_hostname()),
+          "sysContact": obtener_valor_oid(host["ip"], COMUNIDAD_DEFAULT, oid_para_syscontact()),
+          "sysLocation": obtener_valor_oid(host["ip"], COMUNIDAD_DEFAULT, oid_para_syslocation()),
+          "sysDescription": obtener_valor_oid(host["ip"], COMUNIDAD_DEFAULT, oid_para_sysdescription()),
+        }, default=str), 200, {'Content-Type': 'application-json'}
+      # Si es un PUT...
+      else:
+        # Obtenemos el objeto serializado.
+        objeto = request.get_json()
+
+        # Actualizamos los valores.
+        colocar_valor_oid(host["ip"], COMUNIDAD_DEFAULT, oid_para_syscontact(), str(objeto["sysContact"]))
+        colocar_valor_oid(host["ip"], COMUNIDAD_DEFAULT, oid_para_syslocation(), str(objeto["sysLocation"]))
+
+        # Devolvemos el resultado.
+        return json.dumps({
+          "uptime": obtener_valor_oid(host["ip"], COMUNIDAD_DEFAULT, oid_para_uptime()),
+          "hostname": obtener_valor_oid(host["ip"], COMUNIDAD_DEFAULT, oid_para_hostname()),
+          "sysContact": obtener_valor_oid(host["ip"], COMUNIDAD_DEFAULT, oid_para_syscontact()),
+          "sysLocation": obtener_valor_oid(host["ip"], COMUNIDAD_DEFAULT, oid_para_syslocation()),
+          "sysDescription": obtener_valor_oid(host["ip"], COMUNIDAD_DEFAULT, oid_para_sysdescription()),
+        }, default=str), 200, {'Content-Type': 'application-json'}
+  
+  # Si no lo encontramos, regresamos un error 404.
+  return json.dumps({"error": "el enrutador no existe o no ha sido detectado aún"}), 404, {'Content-Type': 'application-json'}
+
+@app.route('/enrutadores/<id>/metricas', methods=["GET"])
+def obtener_metricas_enrutador(id: str):
+  # Variables globales
+  global metricas_por_router
+
+  # Iteramos sobre las métricas buscando el ID.
+  for enrutador in metricas_por_router:
+    # Si el enrutador es el que especificó el usuario, regresamos sus datos.
+    if enrutador == id:
+      return json.dumps(metricas_por_router[enrutador], default=str), 200, {'Content-Type': 'application/json'}
+
+  # Si no lo encontramos, 404.
+  return json.dumps({"error": "el enrutador no existe o no ha sido detectado aún"})
+
+@app.route('/enrutadores/<id>/metricas/grafica', methods=["GET"])
+def obtener_grafica_metricas_enrutador(id: str):
+  # Variables globales
+  global metricas_por_router
+
+  # Iteramos sobre las métricas buscando el ID.
+  for enrutador in metricas_por_router:
+    # Si el enrutador es el que especificó el usuario, regresamos sus datos.
+    if enrutador == id:
+      grafica_base64 = b64_img_de_metricas_router(metricas_por_router[enrutador], tiempo_muestreo, enrutador)
+      return '<img src="data:image/png;base64,{}">'.format(grafica_base64)
+
+  # Si no lo encontramos, 404.
+  return json.dumps({"error": "el enrutador no existe o no ha sido detectado aún"})
+
+@app.route('/enrutadores/<id>/usuarios', methods=["GET", "POST"])
 def enrutador_usuarios(id: str):
-  return "usuarios"
+  global hosts
+  global usuarios_router
 
-@app.route('/enrutadores/<id>/alertas', methods=["GET", "PUT"])
-def enrutador_alertas(id: str):
-  return "alertas"
+  for host in hosts:
+    if host["hostname"] == id:
+      if (request.method == 'POST'):
+        usuario_nuevo = request.get_json()
+        if id in usuarios_router.keys():
+          usuarios_router[f'{id}'].append(usuario_nuevo)
+        else:
+          usuarios_router[f'{id}'] = [usuario_nuevo]
+        return json.dumps(crear_usuario(host, usuario_nuevo)), 200, {'content-type': 'application/json'}
+      else:
+        if id in usuarios_router.keys():
+          return json.dumps(usuarios_router[f'{id}']), 200, {'content-type': 'application/json'}
+        else:
+          return json.dumps([]), 200, {'Content-Type': 'application/json'}
+
+  return json.dumps({'error': 'no se encontró el enrutador o no ha sido detectado'}), 404, {'content-type': 'application/json'}
 
 @app.route('/enrutamiento', methods=["GET", "PUT"])
 def enrutamiento():
-  return "enrutamiento"
+  # Variables globales.
+  global hosts
 
+  # Si es un PUT, queremos actualizar el enrutamiento.
+  if request.method == 'PUT':
+    # Obtenemos el objeto.
+    objeto = request.get_json()
+
+    # Validamos si el objeto tiene la estructura que buscamos.
+    if objeto["protocolo"]:
+      # Validamos que el protocolo solicitado sea válido.
+      if objeto["protocolo"] in ['RIP', 'EIGRP', 'OSPF']:
+        # Imprimimos un manesaje
+        print(f'Se solicitó cambiar el protocolo a: {objeto["protocolo"]}')
+
+        # Actualizamos el protocolo.
+        actualizar_enrutamiento(hosts, objeto["protocolo"])
+
+        # Informamos al usuario.
+        return json.dumps({"resultado": f'todos los routers ahora usan {objeto["protocolo"]}'}), 200, {'Content-Type': 'application/json'}
+      else:
+        return json.dumps({"error": "el protocolo especificado no existe"}), 400, {'Content-Type': 'application/json'}
+    else:
+      return json.dumps({"error": "la estructura del objeto enviado no se reconoce"}), 400, {'Content-Type': 'application/json'}
+  else:
+    return json.dumps(obtener_enrutamiento_routers(hosts), indent=4, default=str), 200, {'Content-Type': 'application/json'}
 
 @app.route("/topologia")
 def obtener_topologia():
@@ -429,35 +631,6 @@ def obtener_topologia():
   return render_template("topologia.html"), 200, {'Content-Type': 'text/html; charset=utf-8'}
 
 
-#########   estos endpoints son para debug!
-
-@app.route('/conexiones_r')
-def obtener_conexiones_r():
-  global conexiones_r
-  return json.dumps(conexiones_r), 200
-
-@app.route('/net_router')
-def obtener_net_router():
-  global net_router
-  return json.dumps(net_router), 200
-
-@app.route('/responde')
-def obtener_responde():
-  global responde
-  return json.dumps(responde), 200
-
-@app.route('/hosts')
-def obtener_hosts():
-  global hosts
-  return json.dumps(hosts), 200
-
-@app.route('/arr_interconexiones')
-def obtener_arr_interconexiones():
-  global arr_interconexiones
-  return json.dumps(arr_interconexiones), 200
-
-########################
-
 @app.errorhandler(404)
 def no_existe(error):
   return json.dumps({"error": "la url no existe"}), 404
@@ -470,13 +643,9 @@ def error_inesperado(error):
 @app.before_first_request
 def iniciar_hilos():
   # Iniciamos los hilos...
-  print("Inicializando hilos para escuchar información...")
   Thread(target=funcion_hilo_escanear_red).start()
-  print("\t- Listo hilo para escanear la red.")
   Thread(target=funcion_hilo_traps).start()
-  print("\t- Listo hilo para escuchar traps snmp.")
   Thread(target=funcion_hilo_obtener_metricas).start()
-  print("\t- Listo hilo para consultar recurrentemente las métricas snmp seleccionadas.")
   print("¡Hilos inicializados correctamente!")
 
 # Ejecutamos la aplicacion.

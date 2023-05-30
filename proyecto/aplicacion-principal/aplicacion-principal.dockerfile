@@ -3,11 +3,12 @@ FROM arm64v8/python:3.10
 
 # Instalamos dependencias de sistema.
 RUN apt update \
-	&& apt install -y \ 
-	net-tools \
-	iproute2 \
-	iputils-ping \
-	dnsutils
+  && apt install -y \ 
+  net-tools \
+  iproute2 \
+  iputils-ping \
+  dnsutils \
+  snmp
 
 # Creamos el directorio de trabajo
 WORKDIR /app

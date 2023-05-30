@@ -14,7 +14,7 @@ import json
         <password> Es el password por defecto de los routers
         <secret> Es la clave secret a la hora de conectarse al router
 """
-def scan_by_interface(interface_name="enp0s3",user="admin",password="admin01",secret="12345678"):
+def scan_by_interface(interface_name="eth0",user="admin",password="admin01",secret="12345678"):
     # Prototipo de conexión a router cisco
     cisco={
         "device_type":"cisco_xe",
@@ -23,13 +23,20 @@ def scan_by_interface(interface_name="enp0s3",user="admin",password="admin01",se
         "password":password,
         "secret":secret
     }
+
     # Obtienen el disccionario de los datos de la red
     dic_data=ni.ifaddresses(interface_name)
+
+    # Validamos que se haya obtenido una dirección válida.
     if 2 not in dic_data:
-        print("No hay una dirección IPv4 en la interfaz")
+        #print("No hay una dirección IPv4 en la interfaz")
         return [-1,-1]
+    
+    # Obtenemos la dirección IP.
     dic_data=dic_data[2][0]
-    print(f"\n---------About---------\n{interface_name}:{dic_data}")
+
+    # #print(f"\n---------About---------\n{interface_name}:{dic_data}")
+    
     addr=list(map(int,dic_data["addr"].split(".")))
     net=list(map(int,dic_data["netmask"].split(".")))
 
@@ -39,7 +46,7 @@ def scan_by_interface(interface_name="enp0s3",user="admin",password="admin01",se
     # Se obtiene la dirección de broadcast
     range_net=get_broadcast_ip(idnet,net)
 
-    print(f"-------Scan Network:-------\n\tID: {arr_to_ip(idnet)}/{c}\n\tNetmask: {arr_to_ip(net)}\n\tBroadcast: {arr_to_ip(range_net)}")
+    # #print(f"-------Scan Network:-------\n\tID: {arr_to_ip(idnet)}/{c}\n\tNetmask: {arr_to_ip(net)}\n\tBroadcast: {arr_to_ip(range_net)}")
 
     # Se prepara para hacer is_host_up
     ips=[idnet[0],idnet[1],idnet[2],idnet[3]+1]
@@ -53,7 +60,7 @@ def scan_by_interface(interface_name="enp0s3",user="admin",password="admin01",se
         for k,v in responde[i].items():
             if "Cisco_Router_IOS" in v:
                 ciscos.append(responde[i])
-    #print(f"Solo routers cisco: {ciscos}")
+    ##print(f"Solo routers cisco: {ciscos}")
 
     # Despues de todo lo que hace el modulo hay que conectarse por ssh o telnet
     #   a los dispositivos cisco
@@ -66,7 +73,7 @@ def scan_by_interface(interface_name="enp0s3",user="admin",password="admin01",se
         flag=False
         # Los datos del router (Interfaces)
         for k,v in i.items():
-            print(f"-------Enviando comandos a router con ip: {k}-------")
+            #print(f"-------Enviando comandos a router con ip: {k}-------")
             cisco["ip"]=k
             output=conectar(cisco,cmd)
             dir=re.split("\n|  Internet address is | ",output[0])
@@ -106,14 +113,15 @@ def scan_by_interface(interface_name="enp0s3",user="admin",password="admin01",se
                     for j,l in v.items():
                         red_e=l.split("/")
                         if red_e[0] in i.keys():
-                            print(f"-------Exists the network scanning {red_e[0]}-------")
+                            #print(f"-------Exists the network scanning {red_e[0]}-------")
+                            pass
                         else:
                             net=create_masc_by_prefix(int(red_e[1]))
                             id=get_id_net(list(map(int,red_e[0].split("."))),net)
                             br=get_broadcast_ip(id,net)
                             if arr_to_ip(br)!=arr_to_ip(id):
                                 ip=[id[0],id[1],id[2],id[3]+1]
-                                print(f"-------Scan Network:-------\n\tID: {arr_to_ip(id)}\n\tNetmask: {arr_to_ip(net)}\n\tBroadcast: {arr_to_ip(br)}")
+                                #print(f"-------Scan Network:-------\n\tID: {arr_to_ip(id)}\n\tNetmask: {arr_to_ip(net)}\n\tBroadcast: {arr_to_ip(br)}")
                                 resp_r=scan_range(ip,br)
                                 responde=responde+resp_r
                                 # aca filtrar Equipos cisco
@@ -123,14 +131,14 @@ def scan_by_interface(interface_name="enp0s3",user="admin",password="admin01",se
                                             ciscos.append(resp_r[a])
                     net_router[k]=v
                 red[k]={0:0}
-    json_respond=json.dumps(responde,sort_keys=True,indent=4)
-    json_routers=json.dumps(net_router,sort_keys=True,indent=4)
-    json_id=json.dumps(red_id,sort_keys=True,indent=4)
+    #json_respond=json.dumps(responde,sort_keys=True,indent=4)
+    #json_routers=json.dumps(net_router,sort_keys=True,indent=4)
+    #json_id=json.dumps(red_id,sort_keys=True,indent=4)
     arr_conexiones=verifica_conectividad(red_id)
-    print(f"Host con respuesta:\n{json_respond}\n"
-        f"Diccionario de routers:\n{json_routers}\n"
-        f"Identificadores de red de cada interfaz:\n{json_id}\n"
-        f"Interconexiones:\n{arr_conexiones}")
+    #print(f"Host con respuesta:\n{json_respond}\n"
+    #    f"Diccionario de routers:\n{json_routers}\n"
+    #    f"Identificadores de red de cada interfaz:\n{json_id}\n"
+    #    f"Interconexiones:\n{arr_conexiones}")
 
     conexiones_r=[]
     for k,v in net_router.items():
@@ -148,8 +156,8 @@ def scan_by_interface(interface_name="enp0s3",user="admin",password="admin01",se
             inter.append(a)
         host_n["interfaces"]=inter
         conexiones_r.append(host_n)
-    json_conexiones=json.dumps(conexiones_r,sort_keys=True,indent=4)
-    print(f"Información general:\n{json_conexiones}")
+    #json_conexiones=json.dumps(conexiones_r,sort_keys=True,indent=4)
+    #print(f"Información general:\n{json_conexiones}")
 
     conexiones_r2=[]
     for k,v in net_router.items():

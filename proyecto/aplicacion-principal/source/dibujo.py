@@ -1,5 +1,83 @@
 from pyvis.network import Network
 import ipaddress, os
+import matplotlib
+matplotlib.use('Agg') # Usamos un renderizador Agg que no requiere UI.
+import matplotlib.pyplot as plt
+import base64
+import io
+
+def convertir_contadores_paquetes_en_lista(datos: list) -> list:
+  # Variable con el resultado
+  resultado = []
+
+  # Iteramos sobre cada elemento en la lista.
+  for i in range(len(datos)):
+    # Si es el primer dato.
+    if i == 0:
+      # Si es el primer dato y solo hay un dato.
+      if len(datos) == 1:
+        resultado.append(0)
+      # Si es el primer dato pero no hay un solo dato.
+      else:
+        resultado.append(datos[i+1] - datos[i])
+    # Si no es el primer dato.
+    else:
+      resultado.append(datos[i] - datos[i-1])
+
+  # Regresamos el arreglo resultante.
+  return resultado
+
+def b64_img_de_metricas_router(metricas_router, tiempo_muestreo: int, nombre_router: str) -> str:
+  # Ajustamos el formato de la fecha a mostrar en la gráfica.
+  plt.rcParams["date.autoformatter.minute"] = "%H:%M:%S"
+
+  # Generamos el contenedor para la imágen.
+  img = io.BytesIO()
+
+  # Iteramos sobre cada enrutador.
+  for interfaz in metricas_router:
+    # Obtenemos las fechas.
+    fechas = metricas_router[f'{interfaz}']["fechas"]
+
+    # Obtenemos sus métricas actuales.
+    paquetes_entrantes =  convertir_contadores_paquetes_en_lista(metricas_router[f'{interfaz}']["paquetes_entrantes"])
+    paquetes_salientes =  convertir_contadores_paquetes_en_lista(metricas_router[f'{interfaz}']["paquetes_salientes"])
+    paquetes_erroneos =  convertir_contadores_paquetes_en_lista(metricas_router[f'{interfaz}']["paquetes_erroneos"])
+    
+    # Creamos el plot para cada métrica de esta interfaz.
+    plt.plot(fechas, paquetes_entrantes, label=f'Interfaz #{interfaz}- entrantes')
+    plt.plot(fechas, paquetes_salientes, label=f'Interfaz #{interfaz}- salientes')
+    plt.plot(fechas, paquetes_erroneos, label=f'Interfaz #{interfaz}- erróneos')
+    
+  # Ubicamos la leyenda arriba a la izquierda.
+  plt.legend(bbox_to_anchor=(1.04, 1), loc="upper left")
+  
+  # Activamos el grid.
+  plt.grid()
+
+  # Giramos las etiquetas 45°
+  plt.xticks(rotation=45)
+
+  # Título de la gráfica
+  plt.title(f'Métricas de {nombre_router}')
+
+  # Etiqueta para eje Y
+  plt.ylabel(f'# de paquetes cada {tiempo_muestreo}s')
+
+  # Guardamos la figura como PNG
+  plt.savefig(img, format='png', bbox_inches="tight")
+
+  # Regresamos el cursor del contenido.
+  img.seek(0)
+
+  # Creamos la gráfica en base64
+  grafica_base64 = base64.b64encode(img.getvalue()).decode()
+
+  # Limpiamos la gráfica.
+  plt.clf()
+
+  # Regresamos la imagen en base64.
+  return grafica_base64
 
 def copiar_archivos(net, out_net):
     #se cambia el link y script a referencia local
